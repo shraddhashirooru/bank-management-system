@@ -24,6 +24,5 @@ Thumbs.db
 .pytest_cache/
 
 # Ignore saved data files (optional - if any)
-*.json
 *.csv
 *.db

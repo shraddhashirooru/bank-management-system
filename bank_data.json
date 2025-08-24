@@ -1,0 +1,124 @@
+{
+    "next_acc_num": 1007,
+    "accounts": {
+        "1001": {
+            "type": "SavingAccount",
+            "data": {
+                "acc_num": 1001,
+                "name": "shraddha",
+                "password": "S@123",
+                "balance": 7000,
+                "transaction_history": [
+                    [
+                        "2025-08-24 21:37:04",
+                        1001,
+                        5000,
+                        "-",
+                        5000
+                    ],
+                    [
+                        "2025-08-24 21:38:45",
+                        1001,
+                        2000,
+                        "-",
+                        7000
+                    ]
+                ],
+                "interest_rate": 0.04,
+                "min_balance": 500
+            }
+        },
+        "1002": {
+            "type": "SavingAccount",
+            "data": {
+                "acc_num": 1002,
+                "name": "Hari",
+                "password": "H@999",
+                "balance": 8300,
+                "transaction_history": [
+                    [
+                        "2025-08-24 21:38:27",
+                        1002,
+                        4300,
+                        "-",
+                        4300
+                    ],
+                    [
+                        "2025-08-24 23:16:14",
+                        1002,
+                        4000,
+                        "-",
+                        8300
+                    ]
+                ],
+                "interest_rate": 0.04,
+                "min_balance": 500
+            }
+        },
+        "1003": {
+            "type": "CurrentAccount",
+            "data": {
+                "acc_num": 1003,
+                "name": "Pallavi",
+                "password": "Pallu@000",
+                "balance": 6000,
+                "transaction_history": [
+                    [
+                        "2025-08-24 21:40:44",
+                        1003,
+                        6000,
+                        "-",
+                        6000
+                    ]
+                ],
+                "overdraft_limit": 5000
+            }
+        },
+        "1005": {
+            "type": "CurrentAccount",
+            "data": {
+                "acc_num": 1005,
+                "name": "Pavan",
+                "password": "P.890",
+                "balance": 6500,
+                "transaction_history": [
+                    [
+                        "2025-08-24 23:07:55",
+                        1005,
+                        10000,
+                        "-",
+                        10000
+                    ],
+                    [
+                        "2025-08-24 23:11:43",
+                        1005,
+                        "-",
+                        3500,
+                        6500
+                    ]
+                ],
+                "overdraft_limit": 5000
+            }
+        },
+        "1006": {
+            "type": "SavingAccount",
+            "data": {
+                "acc_num": 1006,
+                "name": "Gaurav",
+                "password": "Guru.9",
+                "balance": 2000,
+                "transaction_history": [
+                    [
+                        "2025-08-24 23:15:03",
+                        1006,
+                        2000,
+                        "-",
+                        2000
+                    ]
+                ],
+                "interest_rate": 0.04,
+                "min_balance": 500
+            }
+        }
+    }
+}

@@ -1,8 +1,94 @@
+from bank_account import BankAccount
+from saving_account import SavingAccount
+from current_account import CurrentAccount
 from bank_system import BankSystem
+import tabulate
+import datetime
+import json
+import os
+
+DATA_FILE = "bank_data.json"
+
+def save_data(bank_system):
+    data = {
+        "next_acc_num": bank_system.next_acc_num,
+        "accounts": {}
+    }
+
+    for acc_num, account in bank_system.accounts.items():
+        acc_type = type(account).__name__
+        acc_data = {
+            "acc_num": account.acc_num,
+            "name": account.name,
+            "password": account.password,
+            "balance": account.balance,
+            "transaction_history": account.transaction_history,
+        }
+
+        if acc_type == "SavingAccount":
+            acc_data["interest_rate"] = account.interest_rate
+            acc_data["min_balance"] = account.min_balance
+        elif acc_type == "CurrentAccount":
+            acc_data["overdraft_limit"] = account.overdraft_limit
+
+        data["accounts"][acc_num] = {
+            "type": acc_type,
+            "data": acc_data
+        }
+
+    with open(DATA_FILE, "w") as f:
+        json.dump(data, f, indent=4)
+
+
+def load_data():
+    if not os.path.exists(DATA_FILE):
+        return BankSystem()
+
+    with open(DATA_FILE, "r") as f:
+        data = json.load(f)
+
+    bank_system = BankSystem()
+    bank_system.next_acc_num = data.get("next_acc_num", 1001)
+
+    for acc_num_str, acc_info in data["accounts"].items():
+        acc_type = acc_info["type"]
+        acc_data = acc_info["data"]
+        acc_num = int(acc_num_str)
+
+        if acc_type == "SavingAccount":
+            account = SavingAccount(
+                acc_num=acc_data["acc_num"],
+                name=acc_data["name"],
+                password=acc_data["password"],
+                balance=acc_data["balance"],
+                interest_rate=acc_data.get("interest_rate", 0.04),
+                min_balance=acc_data.get("min_balance", 500),
+            )
+        elif acc_type == "CurrentAccount":
+            account = CurrentAccount(
+                acc_num=acc_data["acc_num"],
+                name=acc_data["name"],
+                password=acc_data["password"],
+                balance=acc_data["balance"],
+                overdraft_limit=acc_data.get("overdraft_limit", 5000),
+            )
+        else:
+            account = BankAccount(
+                acc_num=acc_data["acc_num"],
+                name=acc_data["name"],
+                password=acc_data["password"],
+                balance=acc_data["balance"],
+            )
+
+        account.transaction_history = acc_data.get("transaction_history", [])
+        bank_system.accounts[acc_num] = account
+
+    return bank_system
+
 if __name__=="__main__":
     print("==========   Welcome to Bank System  ==========")
     print("Please select an option from the main menu:")
-    bank = BankSystem()
+    bank = load_data()
 
     while True:
         try:
@@ -19,15 +105,18 @@ if __name__=="__main__":
                         password=input("Set a secure password for your account: ")
                         initial_deposit=int(input("Enter initial deposit amount: "))
                         bank.create_account(name,acc_type,password,initial_deposit)
+                        save_data(bank)
                     elif option1==2:
                         acc_num=int(input("Enter your account number: "))
                         amount=int(input("Enter the amount: "))
                         bank.deposit_to_account(acc_num, amount)
+                        save_data(bank)
                     elif option1==3:
                         acc_num = int(input("Enter your account number: "))
                         password=input("Enter your password: ")
                         amount = int(input("Enter the amount: "))
                         bank.withdraw_from_account(acc_num, password,amount)
+                        save_data(bank)
                     elif option1==4:
                         acc_num = int(input("Enter your account number: "))
                         bank.check_balance(acc_num)
@@ -44,6 +133,7 @@ if __name__=="__main__":
                         acc_num = int(input("Enter your account number: "))
                         password=input("Enter your password: ")
                         bank.delete_account(acc_num,password)
+                        save_data(bank)
                     elif option1==9:
                         break
                     elif option1==0:

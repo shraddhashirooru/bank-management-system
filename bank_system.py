@@ -1,7 +1,7 @@
 from saving_account import SavingAccount
 from current_account import CurrentAccount
 from tabulate import tabulate
-
+import json
 class BankSystem:
     def __init__(self):
         self.accounts={}
@@ -99,3 +99,4 @@ class BankSystem:
             data.append([acc_num, acc.name, acc_type, acc.balance])
 
         print(tabulate(data, headers=["Account No", "Name", "Type", "Balance"], tablefmt="pretty"))
+
