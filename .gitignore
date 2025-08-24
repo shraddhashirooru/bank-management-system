@@ -1,0 +1,29 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment folders
+venv/
+env/
+
+# PyCharm project settings
+.idea/
+
+# VS Code project settings (in case you switch)
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Log or temporary files
+*.log
+
+# Test cache
+.pytest_cache/
+
+# Ignore saved data files (optional - if any)
+*.json
+*.csv
+*.db
